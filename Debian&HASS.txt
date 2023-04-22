@@ -1,0 +1,114 @@
+In this video we show you how to do a Home Assistant Supervised Installation
+
+Personally I prefer to run this in a VM because you can take a snapshot prior to upgrades and rollback if things go thing wrong
+
+Also, if you run this on say a Raspberry Pi for instance and that stops working, you're home automatation will be out of service while you source a replacement computer and then restore Home Assistant
+
+With a VM though, you can run it on another hypervisor until you can replace the broken computer
+
+Although you can download and install Home Assistant as a pre-built VM, another option is to do a supervised installation
+
+This involves instaling Home Assistant onto a Debian OS which brings the extra benefit of being able take advantage of features in Linux such as USB over IP for instance
+
+Useful links:  
+https://www.home-assistant.io/install...  
+https://github.com/home-assistant/arc...  
+https://github.com/home-assistant/os-...
+
+=============================
+SUPPORT THE CHANNEL
+Donate through Paypal: 
+https://paypal.me/DavidMcKone
+Donate through Buy Me A Coffee: 
+https://buymeacoffee.com/dmckone
+Become a monthly contributor on Patreon: 
+https://www.patreon.com/dmckone
+Become a monthly contributor on YouTube:
+  
+
+ / @techtutorialsdav...  
+==============================
+
+==============================
+MEDIA LINKS:
+Website - https://www.techtutorials.tv/
+Twitter - https://twitter.com/dsmckone1
+Facebook - https://facebook.com/dsmckone
+Linkedin - https://www.linkedin.com/in/dmckone
+Instagram - https://www.instagram.com/david.mckone
+==============================
+
+Assumptions:  
+It is assumed that you already have a hypervisor to run this on, but Proxmox VE is recommended  
+As even the FBI warn, security is something you need to take seriously with smart home devices  
+While you can use a software firewall like UFW on a Debian computer, Proxmox VE also provides a firewall option  
+The benefit of using the firewall in Proxmox VE is that's independent of the VM, meaning only a Proxmox administrator can make changes to it  
+It also avoids some of the complications of the extra rules required to support Docker for instance
+
+Steps Taken
+1) Debian OS  
+Debian OS is supported so you need to create a VM with Debian installed  
+This should either have a static IP address or a reserved IP address in DHCP  
+By default, there is no support for sudo so switch to root  
+su -  
+And make sure the OS is up to date  
+apt update && apt upgrade -y  
+
+2) Install Dependencies  
+apt install apparmor jq wget curl udisks2 libglib2.0-bin network-manager dbus systemd-journal-remote -y  
+
+3) Install Docker-CE  
+The Docker Community Edition is supported so install this  
+curl -fsSL get.docker.com | sh  
+
+4) Install HA OS Agent  
+The OS agent for HA needs to be installed to allow communication with the OS  
+TIP: Check for the latest version  
+https://github.com/home-assistant/os-...  
+
+Download and install the package  
+wget https://github.com/home-assistant/os-...  
+dpkg -i os-agent_1.4.1_linux_x86_64.deb  
+TIP: Copy the URL in the web browser
+
+4) Install HA Supervised 
+Download the package
+wget https://github.com/home-assistant/sup... -O homeassistant-supervised.deb  
+The -O parameter is to overwrite the existing file
+
+Install the package
+dpkg -i homeassistant-supervised.deb  
+Now reboot the computer
+
+5) Onboarding
+With the installation complete and the computer back up and running, point your web browser to port 8123 of the computer  
+E.g. http://192.168.100.20:8213  
+NOTE: At this stage, HTTPS is not available
+Wait for the HA wizard to become available and then follow the process
+
+6) Updating Home Assistant  
+Home Assistant Code, Add-Ons and Integrations can be updated as normal
+Other software will need to be updated from the CLI
+That can be done by repeating the installation process, although OS-Agent will need a newer file downloading
+
+7) Troubleshooting
+For problems check the logs in HA or check the operating system logs  
+journalctl -f
+
+Chapters
+00:00 Intro
+00:28 Requirements
+01:14 Update Debian
+02:10 Install Dependencies
+03:05 Install Docker CE
+03:21 Install OS-Agent
+04:28 Install HA Supervised
+05:27 Onboarding
+06:38 Maintenance
+10:07 Security Considerations
+
+Credits
+LoveLife | Instrumental Prod. Blue Mango | EQMUSEQ.COM by Don Da Vinci
+https://soundcloud.com/eqmuseq/loveli...
+
+home assistant,homeassistant proxmox,homeassistant proxmox install,home assistant supervised,smart home,home assistant setup,home assistant supervisor install,home assistant vm,home assistant vm inst,Home Assistant Supervised Installation,home assistant debian,home assistant debian install,home assistant debian 11
