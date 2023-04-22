@@ -1,3 +1,6 @@
+# About the project! 
+This is just a basic animal applications that show some list of pictures on useState/UseEvent actions/changes, to give user options of Animals they like the most. Each Animal has a heart that comes with it and is getting larger in size if the animal picture is clicked.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
